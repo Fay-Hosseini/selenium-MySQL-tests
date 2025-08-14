@@ -1,0 +1,30 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# dotenv file (contains secrets)
+.env
+
+# PyCharm specific
+.idea/
+*.iml
+
+# Logs and reports
+*.log
+*.csv
+*.sqlite3
+
+# Selenium screenshots or downloads (if any)
+screenshots/
+downloads/
+
+# OS files
+.DS_Store
+Thumbs.db
