@@ -53,6 +53,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Wait for MySQL to be ready
+      run: |
+        echo "Waiting for MySQL service to be ready..."
+        for i in {1..30}; do
+          if mysql -hmysql -u${{ secrets.MYSQL_USER }} -p${{ secrets.MYSQL_PASSWORD }} -e "SELECT 1;" &> /dev/null; then
+            echo "MySQL is ready!"
+            break
+          fi
+          echo "MySQL not ready yet... retrying in 2s"
+          sleep 2
+        done
+
     - name: Run pytest with Allure results
       run: |
         pytest --alluredir=allure-results
