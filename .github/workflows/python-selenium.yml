@@ -26,8 +26,6 @@ jobs:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DB }}
-        ports:
-          - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping -h localhost -uroot -proot"
           --health-interval=10s
@@ -55,13 +53,12 @@ jobs:
 
     - name: Wait for MySQL to be ready
       run: |
-        echo "Waiting for MySQL service to be ready..."
         for i in {1..30}; do
-          if mysql -hmysql -u${{ secrets.MYSQL_USER }} -p${{ secrets.MYSQL_PASSWORD }} -e "SELECT 1;" &> /dev/null; then
-            echo "MySQL is ready!"
+          if mysqladmin ping -hmysql -uroot -proot --silent; then
+            echo "MySQL is up!"
             break
           fi
-          echo "MySQL not ready yet... retrying in 2s"
+          echo "Waiting for MySQL..."
           sleep 2
         done
 
