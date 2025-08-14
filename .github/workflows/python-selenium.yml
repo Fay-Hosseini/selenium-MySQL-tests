@@ -15,16 +15,17 @@ jobs:
     env:
       MYSQL_USER: ${{ secrets.MYSQL_USER }}
       MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      MYSQL_HOST: mysql   # <-- change from 127.0.0.1 or secret to "mysql"
+      MYSQL_HOST: mysql
       MYSQL_DB: ${{ secrets.MYSQL_DB }}
-
 
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testdb
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DB }}
         ports:
           - 3306:3306
         options: >-
@@ -53,12 +54,6 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run pytest with Allure results
-      env:
-        DB_HOST: localhost
-        DB_PORT: 3306
-        DB_USER: root
-        DB_PASSWORD: root
-        DB_NAME: testdb
       run: |
         pytest --alluredir=allure-results
 
