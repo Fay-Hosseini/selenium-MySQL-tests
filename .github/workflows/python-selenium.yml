@@ -15,8 +15,9 @@ jobs:
     env:
       MYSQL_USER: ${{ secrets.MYSQL_USER }}
       MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+      MYSQL_HOST: mysql   # <-- change from 127.0.0.1 or secret to "mysql"
       MYSQL_DB: ${{ secrets.MYSQL_DB }}
+
 
     services:
       mysql:
