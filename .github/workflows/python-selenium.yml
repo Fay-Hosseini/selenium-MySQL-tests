@@ -12,6 +12,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MYSQL_USER: ${{ secrets.MYSQL_USER }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+      MYSQL_DB: ${{ secrets.MYSQL_DB }}
 
     services:
       mysql:
