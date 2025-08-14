@@ -11,10 +11,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # MySQL connection info from environment variables
+MYSQL_HOST = os.getenv("MYSQL_HOST", "mysql")
 MYSQL_USER = os.getenv("MYSQL_USER")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_HOST = os.getenv("MYSQL_HOST", "mysql")  # default to 'mysql' for GitHub Actions
 MYSQL_DB = os.getenv("MYSQL_DB")
+
 
 # --- Fixture for Selenium WebDriver (headless) ---
 @pytest.fixture(scope="session")
