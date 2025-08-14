@@ -6,8 +6,9 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 
+# Load environment variables from .env (for local development)
 load_dotenv()
-
+# MySQL connection info from environment variables
 MYSQL_USER = os.getenv("MYSQL_USER")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
 MYSQL_HOST = os.getenv("MYSQL_HOST")
@@ -30,6 +31,9 @@ def driver():
 # --- Fixture for fetching test data from MySQL ---
 @pytest.fixture(scope="session")
 def login_data():
+    if not all([MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DB]):
+        pytest.exit("Missing MySQL environment variables. Make sure MYSQL_USER, MYSQL_PASSWORD, MYSQL_HOST, and MYSQL_DB are set.")
+
     try:
         conn = mysql.connector.connect(
             host=MYSQL_HOST,
